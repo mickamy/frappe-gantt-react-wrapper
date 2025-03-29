@@ -1,6 +1,6 @@
 {
   "name": "frappe-gantt-react-wrapper",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "A minimal React wrapper for frappe-gantt",
   "main": "dist/frappe-gantt-react-wrapper.umd.js",
   "module": "dist/frappe-gantt-react-wrapper.es.js",
