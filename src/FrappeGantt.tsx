@@ -27,12 +27,14 @@ export interface FrappeGanttProps {
   tasks: Task[]; // tasks to display
   viewMode?: ViewMode; // initial view mode (default is 'Day')
   onClickTask?: (task: Task) => void;
+  onDateChange?: (task: Task, start: string, end: string) => void;
 }
 
 const FrappeGantt: React.FC<FrappeGanttProps> = ({
   tasks,
   viewMode = "Day",
   onClickTask,
+  onDateChange,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const ganttRef = useRef<Gantt | null>(null);
@@ -48,6 +50,11 @@ const FrappeGantt: React.FC<FrappeGanttProps> = ({
             onClickTask(task);
           }
         },
+        on_date_change: (task: Task, start: string, end: string) => {
+          if (onDateChange) {
+            onDateChange(task, start, end);
+          }
+        },
       });
     } else {
       ganttRef.current.refresh(tasks);
@@ -60,7 +67,7 @@ const FrappeGantt: React.FC<FrappeGanttProps> = ({
       }
       ganttRef.current = null;
     };
-  }, [tasks, viewMode, onClickTask]);
+  }, [tasks, viewMode, onClickTask, onDateChange]);
 
   return <div ref={containerRef} className="frappe-gantt-container" />;
 };
