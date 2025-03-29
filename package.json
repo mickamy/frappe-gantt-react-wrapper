@@ -8,8 +8,7 @@
   "exports": {
     ".": {
       "import": "./dist/frappe-gantt-react-wrapper.es.js",
-      "require": "./dist/frappe-gantt-react-wrapper.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/frappe-gantt-react-wrapper.umd.js"
     }
   },
   "files": ["dist", "src"],
