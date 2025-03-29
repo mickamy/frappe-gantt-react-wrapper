@@ -1,6 +1,6 @@
 {
   "name": "frappe-gantt-react-wrapper",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A minimal React wrapper for frappe-gantt",
   "main": "dist/frappe-gantt-react-wrapper.umd.js",
   "module": "dist/frappe-gantt-react-wrapper.es.js",
@@ -12,7 +12,10 @@
       "require": "./dist/frappe-gantt-react-wrapper.umd.js"
     }
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc -p tsconfig.build.json",
