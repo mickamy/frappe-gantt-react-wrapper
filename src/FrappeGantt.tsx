@@ -27,7 +27,7 @@ export interface FrappeGanttProps {
   tasks: Task[]; // tasks to display
   viewMode?: ViewMode; // initial view mode (default is 'Day')
   onClickTask?: (task: Task) => void;
-  onDateChange?: (task: Task, start: string, end: string) => void;
+  onDateChange?: (task: Task, start: Date, end: Date) => void;
 }
 
 const FrappeGantt: React.FC<FrappeGanttProps> = ({
@@ -50,7 +50,7 @@ const FrappeGantt: React.FC<FrappeGanttProps> = ({
             onClickTask(task);
           }
         },
-        on_date_change: (task: Task, start: string, end: string) => {
+        on_date_change: (task: Task, start: Date, end: Date) => {
           if (onDateChange) {
             onDateChange(task, start, end);
           }
