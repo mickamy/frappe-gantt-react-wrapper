@@ -1,6 +1,6 @@
 {
   "name": "frappe-gantt-react-wrapper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal React wrapper for frappe-gantt",
   "main": "dist/frappe-gantt-react-wrapper.umd.js",
   "module": "dist/frappe-gantt-react-wrapper.es.js",
@@ -25,8 +25,8 @@
     "frappe-gantt": "^1.0.3"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
