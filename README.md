@@ -1,54 +1,132 @@
-# React + TypeScript + Vite
+# test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Date: March 25, 2025 → March 29, 2025
+Status: Not started
 
-Currently, two official plugins are available:
+# frappe-gantt-react-wrapper
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A minimal React wrapper component for [frappe-gantt](https://github.com/frappe/gantt), built with TypeScript.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🧩 Simple React wrapper for `frappe-gantt`
+- 🔧 Written in TypeScript
+- 📦 Compatible with React 18+
+- 🎯 Minimal, easily extensible
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Installation
+
+```
+npm install frappe-gantt-react-wrapper frappe-gantt
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> react and react-dom are required as peer dependencies.
+>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+import React from 'react';
+import FrappeGantt, { Task } from 'frappe-gantt-react-wrapper';
+import 'frappe-gantt/dist/frappe-gantt.css';
+
+const tasks: Task[] = [
+  {
+    id: 'Task-1',
+    name: 'Design',
+    start: '2025-04-01',
+    end: '2025-04-05',
+    progress: 80
+  },
+  {
+    id: 'Task-2',
+    name: 'Development',
+    start: '2025-04-06',
+    end: '2025-04-15',
+    progress: 20,
+    dependencies: 'Task-1'
+  }
+];
+
+export default function App() {
+  return <FrappeGantt tasks={tasks} viewMode="Month" />;
+}
+```
+
+## Props
+
+| Prop | Type | Required | Description |
+| --- | --- | --- | --- |
+| `tasks` | `Task[]` | ✅ | List of Gantt tasks |
+| `viewMode` | `'Day' | 'Week' | ...` | ❌ | Initial view mode (default: Day) |
+| `onClickTask` | `(task: Task) => void` | ❌ | Callback for task click events |
+
+## Task Shape
+
+```
+export interface Task {
+  id?: string;
+  name: string;
+  start: string;
+  end?: string;
+  duration?: string;
+  progress: number;
+  dependencies?: string | string[];
+  color?: string;
+  custom_class?: string;
+}
+```
+
+## Internal Logic
+
+The component uses `useEffect` and `ref` to manage the chart lifecycle.
+
+```
+useEffect(() => {
+  if (!containerRef.current) return;
+
+  if (!ganttRef.current) {
+    ganttRef.current = new Gantt(containerRef.current, tasks, {
+      view_mode: viewMode,
+      on_click: onClickTask,
+    });
+  } else {
+    ganttRef.current.refresh(tasks);
+    ganttRef.current.change_view_mode(viewMode);
+  }
+
+  return () => {
+    containerRef.current.innerHTML = '';
+    ganttRef.current = null;
+  };
+}, [tasks, viewMode, onClickTask]);
+```
+
+## Build and Publish
+
+```
+npm run build
+npm publish --access public
+```
+
+Make sure your `package.json` includes the appropriate fields:
+
+```
+{
+  "main": "dist/frappe-gantt-react-wrapper.umd.js",
+  "module": "dist/frappe-gantt-react-wrapper.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/frappe-gantt-react-wrapper.es.js",
+      "require": "./dist/frappe-gantt-react-wrapper.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"]
+}
+```
+
+## License
+
+[MIT](./LICENSE)
