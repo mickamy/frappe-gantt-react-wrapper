@@ -12,13 +12,20 @@ export default defineConfig({
       fileName: (format) => `frappe-gantt-react-wrapper.${format}.js`,
     },
     rollupOptions: {
-      // Don't bundle peer deps or external libs
-      external: ["react", "react-dom", "frappe-gantt"],
+      external: [
+        "react",
+        "react-dom",
+        "frappe-gantt",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+      ],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
+          "frappe-gantt": "Gantt",
         },
+        name: "FrappeGanttReactWrapper",
       },
     },
   },

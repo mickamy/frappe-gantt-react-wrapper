@@ -5,6 +5,7 @@
   "main": "dist/frappe-gantt-react-wrapper.umd.js",
   "module": "dist/frappe-gantt-react-wrapper.es.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/frappe-gantt-react-wrapper.es.js",
@@ -14,7 +15,7 @@
   "files": ["dist", "src"],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "lint": "biome lint . --fix",
     "lint:no-fix": "biome lint .",
     "format": "biome format . --write",
