@@ -1,8 +1,3 @@
-# test
-
-Date: March 25, 2025 → March 29, 2025
-Status: Not started
-
 # frappe-gantt-react-wrapper
 
 A minimal React wrapper component for [frappe-gantt](https://github.com/frappe/gantt), built with TypeScript.
